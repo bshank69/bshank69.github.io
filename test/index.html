@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-image: url('sky.jpg'); /* Path to the sky.jpg image */
+            background-size: cover; /* Make the image cover the entire screen */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            height: 100vh;
+            position: relative; /* To position the button at the bottom left */
+        }
+
+        #header {
+            background-color: rgba(51, 51, 51, 0.7); /* Semi-transparent background for better text readability */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        #menu-bar {
+            background-color: rgba(0, 123, 255, 0.8); /* Transparent blue for the menu bar */
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+
+        #menu-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #menu-bar a:hover {
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+
+        #content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #fff; /* Make text white for visibility on the background */
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ddd; /* Slightly gray text for readability */
+            margin-bottom: 40px;
+        }
+
+        .button-link {
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: #218838;
+        }
+
+        #about-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 12px 25px;
+            background-color: #17a2b8;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #about-button:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        Projects
+    </div>
+
+    <div id="menu-bar">
+        <a href="typewriter.html">The Typewriter</a>
+        <a href="weather.html">Real-Time Weather</a>
+        <a href="draw.html">Draw</a> <!-- Added Draw tab -->
+    </div>
+
+    <div id="content">
+        <h1>Welcome to My Projects!</h1>
+        <p>Explore various projects I've worked on.</p>
+        <a href="typewriter.html" class="button-link">Go to The Typewriter</a>
+    </div>
+
+    <!-- About Button at the bottom left -->
+    <a href="about.html" id="about-button">About</a>
+
+    <script>
+        document.getElementById("surprise-btn").addEventListener("click", function() {
+            // Array of the pages to randomly choose from
+            const pages = ["typewriter.html", "weather.html", "draw.html"];
+            // Pick a random page from the array
+            const randomPage = pages[Math.floor(Math.random() * pages.length)];
+            // Redirect to the randomly selected page
+            window.location.href = randomPage;
+        });
+    </script>
+</body>
+</html>
