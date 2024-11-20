@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Typewriter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            font-family: monospace;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        #clock {
+            font-size: 1rem;
+        }
+
+        #title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        #save-button {
+            font-size: 1rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #content {
+            margin-top: 60px;
+            padding: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #caret {
+            display: inline-block;
+            width: 10px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from {
+                visibility: visible;
+            }
+            to {
+                visibility: hidden;
+            }
+        }
+
+        /* Remove focus outline */
+        #content:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div id="clock"></div>
+        <div id="title">The Typewriter</div>
+        <button id="save-button">Save</button>
+    </div>
+    <div id="content" tabindex="0">
+        <span id="text"></span><span id="caret">_</span>
+    </div>
+
+    <script>
+        const textElement = document.getElementById("text");
+        const clockElement = document.getElementById("clock");
+        const saveButton = document.getElementById("save-button");
+
+        // Update the clock every second
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            clockElement.textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initialize clock immediately
+
+        // Handle typing and key events
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Backspace") {
+                // Handle Backspace key
+                const selection = window.getSelection();
+                if (selection.toString()) {
+                    deleteSelection();
+                } else {
+                    textElement.textContent = textElement.textContent.slice(0, -1);
+                }
+            } else if (event.key === "Delete") {
+                // Handle Delete key
+                if (window.getSelection().toString()) {
+                    deleteSelection();
+                }
+            } else if (event.key === "Enter") {
+                // Add a newline character
+                textElement.textContent += "\n";
+            } else if (event.key.length === 1) {
+                // Add the pressed key to the displayed text
+                const selection = window.getSelection();
+                if (selection.toString()) {
+                    deleteSelection();
+                }
+                textElement.textContent += event.key;
+            }
+        });
+
+        function deleteSelection() {
+            // Clear all content of #text if anything is selected
+            textElement.textContent = "";
+        }
+
+        // Save the content as a .txt file
+        saveButton.addEventListener("click", () => {
+            const textContent = textElement.textContent;
+            const blob = new Blob([textContent], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "TheTypewriter.txt";
+            a.click();
+            URL.revokeObjectURL(a.href); // Cleanup
+        });
+    </script>
+</body>
+</html>
