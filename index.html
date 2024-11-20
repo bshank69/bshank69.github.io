@@ -49,6 +49,7 @@
             color: white;
             border: none;
             border-radius: 5px;
+            margin-right: 10px;
         }
 
         #content {
@@ -56,6 +57,7 @@
             padding: 20px;
             white-space: pre-wrap;
             word-wrap: break-word;
+            user-select: none; /* Prevents text selection outside of content area */
         }
 
         #caret {
@@ -93,6 +95,7 @@
         const textElement = document.getElementById("text");
         const clockElement = document.getElementById("clock");
         const saveButton = document.getElementById("save-button");
+        const contentDiv = document.getElementById("content");
 
         // Update the clock every second
         function updateClock() {
@@ -137,16 +140,36 @@
             textElement.textContent = "";
         }
 
-        // Save the content as a .txt file
+        // Save the content as a .txt file with a user-defined name
         saveButton.addEventListener("click", () => {
             const textContent = textElement.textContent;
-            const blob = new Blob([textContent], { type: "text/plain" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "TheTypewriter.txt";
-            a.click();
-            URL.revokeObjectURL(a.href); // Cleanup
+            const fileName = prompt("Enter the file name:", "TheTypewriter.txt");
+
+            if (fileName && fileName.trim() !== "") {
+                const blob = new Blob([textContent], { type: "text/plain" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(a.href); // Cleanup
+            }
         });
+
+        // Prevent `Ctrl + A` or `Command + A` from selecting the title or clock
+        document.addEventListener("keydown", (event) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === 'a') {
+                event.preventDefault(); // Prevent default select-all behavior
+                selectTextOnly(); // Select text only inside the content div
+            }
+        });
+
+        function selectTextOnly() {
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(textElement); // Select only the typed text
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
     </script>
 </body>
 </html>
