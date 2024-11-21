@@ -9,16 +9,16 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('ai.png'); /* Path to the new ai.png background image */
-            background-size: cover; /* Make the image cover the entire screen */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
             color: #333;
-            text-align: center;
+            background-image: url('ai.png'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
         }
 
         #header {
-            background-color: rgba(51, 51, 51, 0.7); /* Semi-transparent background for better text readability */
+            background-color: rgba(51, 51, 51, 0.7); 
             color: white;
             padding: 15px 20px;
             text-align: center;
@@ -27,7 +27,7 @@
         }
 
         #menu-bar {
-            background-color: rgba(0, 123, 255, 0.8); /* Transparent blue for the menu bar */
+            background-color: rgba(0, 123, 255, 0.8);
             padding: 15px 20px;
             text-align: center;
             box-shadow: 0 4px 2px -2px gray;
@@ -54,52 +54,47 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #fff; /* Change text color to white for better contrast */
+            color: white; /* Make the text white for visibility */
+            padding: 0 20px;
         }
 
         p {
+            max-width: 800px; /* Set a max width to prevent the paragraph from stretching too far */
+            margin: 0 auto; /* Center the paragraph */
             font-size: 1.2rem;
-            color: #ddd; /* Light gray text for readability on the background */
-            margin-bottom: 40px;
-            max-width: 800px;
             line-height: 1.6;
         }
 
-        .button-link {
-            padding: 12px 25px;
-            background-color: #28a745;
+        .author {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        .button-link:hover {
-            background-color: #218838;
+        .back-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div id="header">
-        About Me
-    </div>
-
-    <div id="menu-bar">
-        <a href="index.html">Back to Projects</a>
-    </div>
+    <a href="index.html" class="back-button">Back to Projects</a>
 
     <div id="content">
-        <h1>About This Project</h1>
-        <p>
-            In today's digital era, creativity resides within each of us, yet many often struggle to bring that creativity to life. While this website may appear simple, it serves as a testament to how artificial intelligence can empower individuals who may lack traditional technical skills to freely express their ideas. This project was entirely built using ChatGPT, with no code written by me personally. My intention is to showcase the potential of AI as a powerful tool, demonstrating both its capability and the exciting possibilities it offers in creative endeavors.
-        </p>
+        <p>In this modern age, I believe we all have so much creativity inside us that sometimes we just can't express it. While this website may not mean much, it proves that AI can really help people who want to express their creativity but don't have the necessary skills to do so. I made this website solely using ChatGPT and not a single line of code written by myself. I want to make this a portfolio that shows how powerful AI is and how interesting it can be.</p>
+        <div class="author">- Bishank Malla</div>
     </div>
 </body>
 </html>
