@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Typewriter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            font-family: monospace;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        #back-button {
+            font-size: 1rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        #title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        #save-button {
+            font-size: 1rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-right: 20px;
+            max-width: 120px;
+        }
+
+        #content {
+            margin-top: 60px;
+            padding: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            border: none;
+            outline: none;
+            caret-color: black;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <button id="back-button" onclick="window.location.href='index.html'">Back</button>
+        <div id="title">The Typewriter</div>
+        <button id="save-button">Save</button>
+    </div>
+    <div id="content" contenteditable="true"></div>
+
+    <script>
+        const saveButton = document.getElementById("save-button");
+        const contentDiv = document.getElementById("content");
+
+        // Save button functionality
+        saveButton.addEventListener("click", () => {
+            const textContent = contentDiv.textContent.trim(); // Get the text content
+            if (textContent === "") {
+                alert("There's nothing to save!"); // Prevent saving empty files
+                return;
+            }
+
+            // Prompt user for file name
+            const fileName = prompt("Enter file name (without extension):", "TheTypewriter") || "TheTypewriter";
+
+            // Create a Blob from the content
+            const blob = new Blob([textContent], { type: "text/plain" });
+
+            // Create a temporary link element
+            const downloadLink = document.createElement("a");
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = `${fileName.trim()}.txt`;
+
+            // Append, trigger download, and clean up
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(downloadLink.href);
+        });
+
+        // Handle text selection with Ctrl + A or Command + A
+        contentDiv.addEventListener("keydown", (event) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === "a") {
+                event.preventDefault();
+                selectTextContent();
+            }
+        });
+
+        function selectTextContent() {
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(contentDiv);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    </script>
+</body>
+</html>
