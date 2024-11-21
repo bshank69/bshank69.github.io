@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #canvas-container {
+            position: relative;
+            display: inline-block;
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+
+        canvas {
+            border: 1px solid #000;
+            cursor: crosshair;
+        }
+
+        #controls {
+            margin-top: 20px;
+        }
+
+        button, input[type="range"], input[type="color"] {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #eraser {
+            background-color: #dc3545;
+        }
+
+        #eraser:hover {
+            background-color: #c82333;
+        }
+
+        #clear {
+            background-color: #28a745;
+        }
+
+        #clear:hover {
+            background-color: #218838;
+        }
+
+        #save {
+            background-color: #ffc107;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        #save:hover {
+            background-color: #e0a800;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Styling for the Back Button */
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #back-button:hover {
+            background-color: #c82333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <button id="back-button" onclick="window.location.href='index.html';">Back</button>
+
+    <h1>Draw</h1>
+
+    <div id="canvas-container">
+        <canvas id="drawingCanvas" width="1000" height="700"></canvas>
+    </div>
+
+    <div id="controls">
+        <button id="erase">Erase</button>
+        <button id="clear">Clear</button>
+
+        <div>
+            <label for="brushSize" class="label">Brush Size:</label>
+            <input type="range" id="brushSize" min="1" max="20" value="5" />
+            <span id="brushSizeValue">5</span> <!-- Display current brush size -->
+        </div>
+
+        <div>
+            <label for="eraserSize" class="label">Eraser Size:</label>
+            <input type="range" id="eraserSize" min="1" max="20" value="5" />
+            <span id="eraserSizeValue">5</span> <!-- Display current eraser size -->
+        </div>
+
+        <!-- Custom Color Picker -->
+        <div>
+            <label for="colorPicker" class="label">Pick a Color:</label>
+            <input type="color" id="colorPicker" value="#000000" />
+        </div>
+    </div>
+
+    <button id="save">Save as PNG</button> <!-- Save button positioned in top right -->
+
+    <script>
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let drawing = false;
+        let eraseMode = false;
+        let currentColor = "black";
+        let brushSize = 5;
+        let eraserSize = 5;
+
+        // Start drawing
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDrawing);
+        canvas.addEventListener("mouseout", stopDrawing);
+
+        function startDrawing(event) {
+            drawing = true;
+            draw(event);
+        }
+
+        function draw(event) {
+            if (!drawing) return;
+
+            ctx.lineWidth = eraseMode ? eraserSize : brushSize;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = eraseMode ? "#fff" : currentColor;
+
+            const x = event.offsetX;
+            const y = event.offsetY;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
+        }
+
+        // Eraser mode
+        const eraseButton = document.getElementById("erase");
+        eraseButton.addEventListener("click", () => {
+            eraseMode = !eraseMode;
+            eraseButton.textContent = eraseMode ? "Draw" : "Erase";
+        });
+
+        // Clear canvas
+        const clearButton = document.getElementById("clear");
+        clearButton.addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Brush size change
+        const brushSizeInput = document.getElementById("brushSize");
+        brushSizeInput.addEventListener("input", () => {
+            brushSize = brushSizeInput.value;
+            document.getElementById("brushSizeValue").textContent = brushSize;
+        });
+
+        // Eraser size change
+        const eraserSizeInput = document.getElementById("eraserSize");
+        eraserSizeInput.addEventListener("input", () => {
+            eraserSize = eraserSizeInput.value;
+            document.getElementById("eraserSizeValue").textContent = eraserSize;
+        });
+
+        // Color picker change
+        const colorPicker = document.getElementById("colorPicker");
+        colorPicker.addEventListener("input", (e) => {
+            currentColor = e.target.value;
+        });
+
+        // Save canvas as PNG
+        const saveButton = document.getElementById("save");
+        saveButton.addEventListener("click", () => {
+            const dataURL = canvas.toDataURL("image/png");
+
+            // Create an invisible link to trigger download
+            const link = document.createElement("a");
+            link.href = dataURL;
+            link.download = "drawing.png";
+            link.click();
+        });
+    </script>
+</body>
+</html>
