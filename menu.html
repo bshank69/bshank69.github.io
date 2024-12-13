@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Royal Indian Cuisine Menu</title>
     <style>
         body {
@@ -12,22 +12,26 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         header {
             background-color: #7f3c3c;
             color: white;
             padding: 20px;
             text-align: center;
         }
+
         header h1 {
             margin: 0;
             font-size: 2.5em;
         }
+
         .menu-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
             margin: 20px;
         }
+
         .menu-category {
             width: 100%;
             max-width: 300px;
@@ -37,10 +41,12 @@
             background-color: #fff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
         .menu-category h2 {
             text-align: center;
             color: #7f3c3c;
         }
+
         .menu-item {
             display: flex;
             justify-content: space-between;
@@ -48,12 +54,15 @@
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
         }
+
         .menu-item:last-child {
             border-bottom: none;
         }
+
         .menu-item p {
             margin: 0;
         }
+
         .menu-item button {
             padding: 5px 10px;
             border: none;
@@ -61,10 +70,17 @@
             color: white;
             cursor: pointer;
             font-size: 1.2em;
+            transition: transform 0.1s ease-in-out;
         }
+
+        .menu-item button:active {
+            transform: scale(0.95);
+        }
+
         .menu-item button:focus {
             outline: none;
         }
+
         .added-items-container {
             background-color: #7f3c3c;
             color: white;
@@ -74,6 +90,7 @@
             font-size: 1.2em;
             border-radius: 10px;
         }
+
         .added-items {
             margin-top: 10px;
             text-align: left;
@@ -85,14 +102,33 @@
             border-radius: 10px;
             box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         }
+
         .added-items p {
             margin: 5px 0;
         }
+
+        #clear-all {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #dc3545;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #clear-all:hover {
+            background-color: #c82333;
+        }
+
         @media (max-width: 768px) {
             .menu-container {
                 flex-direction: column;
                 align-items: center;
             }
+
             .menu-category {
                 width: 80%;
                 max-width: 100%;
@@ -215,7 +251,7 @@
         </div>
     </div>
 
-    <!-- Other Sections (South Indian, Rice, etc.) -->
+    <!-- South Indian Specials Section -->
     <div class="menu-category">
         <h2>South Indian Specials</h2>
         <div class="menu-item">
@@ -255,7 +291,7 @@
         </div>
     </div>
 
-    <!-- Other Menu Sections (Rice, Breads, Desserts, Drinks, Breakfast) -->
+    <!-- Rice Section -->
     <div class="menu-category">
         <h2>Rice</h2>
         <div class="menu-item">
@@ -281,6 +317,7 @@
         </div>
     </div>
 
+    <!-- Breads Section -->
     <div class="menu-category">
         <h2>Breads</h2>
         <div class="menu-item">
@@ -306,6 +343,7 @@
         </div>
     </div>
 
+    <!-- Dessert Section -->
     <div class="menu-category">
         <h2>Dessert</h2>
         <div class="menu-item">
@@ -338,6 +376,7 @@
         </div>
     </div>
 
+    <!-- Drinks Section -->
     <div class="menu-category">
         <h2>Drinks</h2>
         <div class="menu-item">
@@ -370,6 +409,7 @@
         </div>
     </div>
 
+    <!-- Breakfast Menu Section -->
     <div class="menu-category">
         <h2>Breakfast Menu</h2>
         <div class="menu-item">
@@ -432,6 +472,9 @@
     </div>
 </div>
 
+<!-- Clear All Button -->
+<button id="clear-all" onclick="clearAllItems()">Clear All</button>
+
 <script>
     let cart = {};
 
@@ -457,6 +500,11 @@
                 addedItemsContainer.innerHTML += `<p>${item} - ${cart[item]}x</p>`;
             }
         }
+    }
+
+    function clearAllItems() {
+        cart = {}; // Clear the cart
+        updateAddedItems(); // Update the display
     }
 </script>
 
