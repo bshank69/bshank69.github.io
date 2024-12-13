@@ -93,6 +93,23 @@
         #about-button:hover {
             background-color: #138496;
         }
+
+        #menu-button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        #menu-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +131,9 @@
 
     <!-- About Button at the bottom left -->
     <a href="about.html" id="about-button">About</a>
+
+    <!-- Menu Button at the bottom right -->
+    <a href="menu.html" id="menu-button">Menu</a>
 
     <script>
         document.getElementById("surprise-btn").addEventListener("click", function() {
