@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Indian Cuisine Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #7f3c3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin: 20px;
+        }
+        .menu-category {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .menu-category h2 {
+            text-align: center;
+            color: #7f3c3c;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item p {
+            margin: 0;
+        }
+        .menu-item button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #7f3c3c;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        .menu-item button:focus {
+            outline: none;
+        }
+        .added-items-container {
+            background-color: #7f3c3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+        }
+        .added-items {
+            margin-top: 10px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: white;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+        .added-items p {
+            margin: 5px 0;
+        }
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .menu-category {
+                width: 80%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Royal Indian Cuisine</h1>
+</header>
+
+<div class="menu-container">
+    <!-- Starters Section -->
+    <div class="menu-category">
+        <h2>Starters</h2>
+        <div class="menu-item">
+            <p>Urad Vada - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Urad Vada', 1)">+</button>
+                <button onclick="adjustItem('Urad Vada', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Dal Vada - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Dal Vada', 1)">+</button>
+                <button onclick="adjustItem('Dal Vada', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Veg Samosa - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Veg Samosa', 1)">+</button>
+                <button onclick="adjustItem('Veg Samosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Chicken Samosa - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Chicken Samosa', 1)">+</button>
+                <button onclick="adjustItem('Chicken Samosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Veg Cutlet - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Veg Cutlet', 1)">+</button>
+                <button onclick="adjustItem('Veg Cutlet', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Chicken Cutlet - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Chicken Cutlet', 1)">+</button>
+                <button onclick="adjustItem('Chicken Cutlet', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Fish Cutlet - $1.50</p>
+            <div>
+                <button onclick="adjustItem('Fish Cutlet', 1)">+</button>
+                <button onclick="adjustItem('Fish Cutlet', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lunch/Dinner Section -->
+    <div class="menu-category">
+        <h2>Lunch/Dinner</h2>
+        <div class="menu-item">
+            <p>Chilli Chicken - $12.99</p>
+            <div>
+                <button onclick="adjustItem('Chilli Chicken', 1)">+</button>
+                <button onclick="adjustItem('Chilli Chicken', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Butter Chicken - $12.99</p>
+            <div>
+                <button onclick="adjustItem('Butter Chicken', 1)">+</button>
+                <button onclick="adjustItem('Butter Chicken', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Chicken Curry - $12.99</p>
+            <div>
+                <button onclick="adjustItem('Chicken Curry', 1)">+</button>
+                <button onclick="adjustItem('Chicken Curry', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Fish Curry - $13.99</p>
+            <div>
+                <button onclick="adjustItem('Fish Curry', 1)">+</button>
+                <button onclick="adjustItem('Fish Curry', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Goat Curry - $15.99</p>
+            <div>
+                <button onclick="adjustItem('Goat Curry', 1)">+</button>
+                <button onclick="adjustItem('Goat Curry', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Beef Fry - $15.99</p>
+            <div>
+                <button onclick="adjustItem('Beef Fry', 1)">+</button>
+                <button onclick="adjustItem('Beef Fry', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Paneer - $10.99</p>
+            <div>
+                <button onclick="adjustItem('Paneer', 1)">+</button>
+                <button onclick="adjustItem('Paneer', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other Sections (South Indian, Rice, etc.) -->
+    <div class="menu-category">
+        <h2>South Indian Specials</h2>
+        <div class="menu-item">
+            <p>Masala Dosa - $9.99</p>
+            <div>
+                <button onclick="adjustItem('Masala Dosa', 1)">+</button>
+                <button onclick="adjustItem('Masala Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Plain Dosa - $7.99</p>
+            <div>
+                <button onclick="adjustItem('Plain Dosa', 1)">+</button>
+                <button onclick="adjustItem('Plain Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Ghee Dosa - $8.99</p>
+            <div>
+                <button onclick="adjustItem('Ghee Dosa', 1)">+</button>
+                <button onclick="adjustItem('Ghee Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Uthappam - $8.99</p>
+            <div>
+                <button onclick="adjustItem('Uthappam', 1)">+</button>
+                <button onclick="adjustItem('Uthappam', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Idli (4) and Sambar - $6.99</p>
+            <div>
+                <button onclick="adjustItem('Idli and Sambar', 1)">+</button>
+                <button onclick="adjustItem('Idli and Sambar', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other Menu Sections (Rice, Breads, Desserts, Drinks, Breakfast) -->
+    <div class="menu-category">
+        <h2>Rice</h2>
+        <div class="menu-item">
+            <p>Chicken Biryani - $11.99</p>
+            <div>
+                <button onclick="adjustItem('Chicken Biryani', 1)">+</button>
+                <button onclick="adjustItem('Chicken Biryani', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Goat Biryani - $13.99</p>
+            <div>
+                <button onclick="adjustItem('Goat Biryani', 1)">+</button>
+                <button onclick="adjustItem('Goat Biryani', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Veg Fried Rice - $8.99</p>
+            <div>
+                <button onclick="adjustItem('Veg Fried Rice', 1)">+</button>
+                <button onclick="adjustItem('Veg Fried Rice', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-category">
+        <h2>Breads</h2>
+        <div class="menu-item">
+            <p>Naan - $2</p>
+            <div>
+                <button onclick="adjustItem('Naan', 1)">+</button>
+                <button onclick="adjustItem('Naan', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Garlic Naan - $2</p>
+            <div>
+                <button onclick="adjustItem('Garlic Naan', 1)">+</button>
+                <button onclick="adjustItem('Garlic Naan', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Parotta - $2</p>
+            <div>
+                <button onclick="adjustItem('Parotta', 1)">+</button>
+                <button onclick="adjustItem('Parotta', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-category">
+        <h2>Dessert</h2>
+        <div class="menu-item">
+            <p>Fruit Salad - $3.99</p>
+            <div>
+                <button onclick="adjustItem('Fruit Salad', 1)">+</button>
+                <button onclick="adjustItem('Fruit Salad', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Gulab Jamun (3pcs) - $3.99</p>
+            <div>
+                <button onclick="adjustItem('Gulab Jamun', 1)">+</button>
+                <button onclick="adjustItem('Gulab Jamun', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Paysam - $4.99</p>
+            <div>
+                <button onclick="adjustItem('Paysam', 1)">+</button>
+                <button onclick="adjustItem('Paysam', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Mango Ice Cream - $4.99</p>
+            <div>
+                <button onclick="adjustItem('Mango Ice Cream', 1)">+</button>
+                <button onclick="adjustItem('Mango Ice Cream', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-category">
+        <h2>Drinks</h2>
+        <div class="menu-item">
+            <p>Masala Chai - $1.99</p>
+            <div>
+                <button onclick="adjustItem('Masala Chai', 1)">+</button>
+                <button onclick="adjustItem('Masala Chai', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Coffee - $1.99</p>
+            <div>
+                <button onclick="adjustItem('Coffee', 1)">+</button>
+                <button onclick="adjustItem('Coffee', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Soft Drinks - $1.99</p>
+            <div>
+                <button onclick="adjustItem('Soft Drinks', 1)">+</button>
+                <button onclick="adjustItem('Soft Drinks', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Mango Lassi - $3.99</p>
+            <div>
+                <button onclick="adjustItem('Mango Lassi', 1)">+</button>
+                <button onclick="adjustItem('Mango Lassi', -1)">-</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-category">
+        <h2>Breakfast Menu</h2>
+        <div class="menu-item">
+            <p>Masala Dosa - $9.99</p>
+            <div>
+                <button onclick="adjustItem('Masala Dosa', 1)">+</button>
+                <button onclick="adjustItem('Masala Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Plain Dosa - $7.99</p>
+            <div>
+                <button onclick="adjustItem('Plain Dosa', 1)">+</button>
+                <button onclick="adjustItem('Plain Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Ghee Dosa - $8.99</p>
+            <div>
+                <button onclick="adjustItem('Ghee Dosa', 1)">+</button>
+                <button onclick="adjustItem('Ghee Dosa', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Uthappam - $8.99</p>
+            <div>
+                <button onclick="adjustItem('Uthappam', 1)">+</button>
+                <button onclick="adjustItem('Uthappam', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Idli (4) and Sambar - $6.99</p>
+            <div>
+                <button onclick="adjustItem('Idli and Sambar', 1)">+</button>
+                <button onclick="adjustItem('Idli and Sambar', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Appam - $4.99</p>
+            <div>
+                <button onclick="adjustItem('Appam', 1)">+</button>
+                <button onclick="adjustItem('Appam', -1)">-</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <p>Egg Curry - $5.99</p>
+            <div>
+                <button onclick="adjustItem('Egg Curry', 1)">+</button>
+                <button onclick="adjustItem('Egg Curry', -1)">-</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Added Items Section -->
+<div class="added-items-container">
+    <h2>Added Dishes:</h2>
+    <div id="addedItems" class="added-items">
+        <!-- Added items will appear here -->
+    </div>
+</div>
+
+<script>
+    let cart = {};
+
+    function adjustItem(item, quantity) {
+        if (!cart[item]) {
+            cart[item] = 0;
+        }
+        cart[item] += quantity;
+
+        if (cart[item] < 0) {
+            cart[item] = 0;
+        }
+
+        updateAddedItems();
+    }
+
+    function updateAddedItems() {
+        let addedItemsContainer = document.getElementById('addedItems');
+        addedItemsContainer.innerHTML = '';
+
+        for (let item in cart) {
+            if (cart[item] > 0) {
+                addedItemsContainer.innerHTML += `<p>${item} - ${cart[item]}x</p>`;
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
